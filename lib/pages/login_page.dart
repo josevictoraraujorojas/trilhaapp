@@ -6,6 +6,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String email = "";
+  String senha = "";
+  bool isObscureText = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +58,9 @@ class _LoginPageState extends State<LoginPage> {
                   height: 30,
                   alignment: Alignment.center,
                   child: TextField(
+                    onChanged: (value) {
+                      email = value;
+                    },
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(top: -1),
@@ -83,6 +90,10 @@ class _LoginPageState extends State<LoginPage> {
                   height: 30,
                   alignment: Alignment.center,
                   child: TextField(
+                    obscureText: isObscureText,
+                    onChanged: (value) {
+                      senha = value;
+                    },
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(top: -1),
@@ -102,7 +113,19 @@ class _LoginPageState extends State<LoginPage> {
                         Icons.lock_outline,
                         color: Color.fromARGB(255, 141, 79, 151),
                       ),
-                      suffixIcon: Icon(Icons.visibility, color: Colors.white),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isObscureText = !isObscureText;
+                          });
+                        },
+                        child: Icon(
+                          isObscureText
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -114,7 +137,10 @@ class _LoginPageState extends State<LoginPage> {
                   child: SizedBox(
                     width: double.infinity,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print("Seu email:$email");
+                        print("Sua senha:$senha");
+                      },
                       style: ButtonStyle(
                         shape: WidgetStateProperty.all(
                           RoundedRectangleBorder(
